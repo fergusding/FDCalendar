@@ -28,6 +28,9 @@
 
 @end
 
+#define CollectionViewHorizonMargin 5
+#define CollectionViewVerticalMargin 5
+
 @interface FDCalendarItem () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -36,15 +39,13 @@
 
 @implementation FDCalendarItem
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+- (instancetype)init {
+    if (self = [super init]) {
         self.backgroundColor = [UIColor clearColor];
+        [self setupCollectionView];
+        [self setFrame:CGRectMake(0, 0, DeviceWidth, self.collectionView.frame.size.height + CollectionViewVerticalMargin * 2)];
     }
     return self;
-}
-
-- (void)drawRect:(CGRect)rect {
-    [self setupCollectionView];
 }
 
 #pragma mark - Custom Accessors
@@ -76,10 +77,8 @@
 
 // collectionView显示日期单元，设置其属性
 - (void)setupCollectionView {
-    CGRect collectionViewFrame = CGRectMake(5, 5, self.bounds.size.width - 10, self.bounds.size.height);
-    
-    CGFloat itemWidth = collectionViewFrame.size.width / 7;
-    CGFloat itemHeight = collectionViewFrame.size.height / 6;
+    CGFloat itemWidth = (DeviceWidth - CollectionViewHorizonMargin * 2) / 7;
+    CGFloat itemHeight = itemWidth;
     
     UICollectionViewFlowLayout *flowLayot = [[UICollectionViewFlowLayout alloc] init];
     flowLayot.sectionInset = UIEdgeInsetsZero;
@@ -87,12 +86,12 @@
     flowLayot.minimumLineSpacing = 0;
     flowLayot.minimumInteritemSpacing = 0;
     
+    CGRect collectionViewFrame = CGRectMake(CollectionViewHorizonMargin, CollectionViewVerticalMargin, DeviceWidth - CollectionViewHorizonMargin * 2, itemHeight * 6);
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayot];
     [self addSubview:self.collectionView];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionView.backgroundColor = [UIColor clearColor];
-    
     [self.collectionView registerClass:[FDCalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
 }
 
@@ -107,8 +106,8 @@
 }
 
 // 获取date当前月的总天数
-- (NSInteger)totalDaysInMonth {
-    NSRange range = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:self.date];
+- (NSInteger)totalDaysInMonthOfDate:(NSDate *)date {
+    NSRange range = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
     return range.length;
 }
 
@@ -124,16 +123,23 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.dayLabel.textColor = [UIColor blackColor];
     NSInteger firstWeekday = [self weekdayOfFirstDayInDate];
-    NSInteger totalDaysOfMonth = [self totalDaysInMonth];
+    NSInteger totalDaysOfMonth = [self totalDaysInMonthOfDate:self.date];
+    NSInteger totalDaysOfLastMonth = [self totalDaysInMonthOfDate:[self previousMonthDate]];
     
-    if (indexPath.row < firstWeekday || indexPath.row >= totalDaysOfMonth + firstWeekday) {
-        cell.dayLabel.text = @"";
+    if (indexPath.row < firstWeekday) {
+        NSInteger day = totalDaysOfLastMonth - firstWeekday + indexPath.row + 1;
+        cell.dayLabel.text = [NSString stringWithFormat:@"%ld", day];
+        cell.dayLabel.textColor = [UIColor grayColor];
+    } else if (indexPath.row >= totalDaysOfMonth + firstWeekday) {
+        NSInteger day = indexPath.row - totalDaysOfMonth - firstWeekday + 1;
+        cell.dayLabel.text = [NSString stringWithFormat:@"%ld", day];
+        cell.dayLabel.textColor = [UIColor grayColor];
     } else {
         NSInteger day = indexPath.row - firstWeekday + 1;
         cell.dayLabel.text= [NSString stringWithFormat:@"%ld", day];
         
         if (day == [[NSCalendar currentCalendar] component:NSCalendarUnitDay fromDate:self.date]) {
-            cell.backgroundColor = [UIColor orangeColor];
+            cell.backgroundColor = [UIColor redColor];
             cell.layer.cornerRadius = cell.frame.size.height / 2;
             cell.dayLabel.textColor = [UIColor whiteColor];
         }
@@ -143,7 +149,7 @@
             
             // 将当前日期的那天高亮显示
             if (day == [[NSCalendar currentCalendar] component:NSCalendarUnitDay fromDate:[NSDate date]]) {
-                cell.dayLabel.textColor = [UIColor orangeColor];
+                cell.dayLabel.textColor = [UIColor redColor];
             }
         }
     }

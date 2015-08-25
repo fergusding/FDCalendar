@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA2CE1241B8C43320030F098 /* icon_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2CE1221B8C43320030F098 /* icon_next@2x.png */; };
+		EA2CE1251B8C43320030F098 /* icon_previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2CE1231B8C43320030F098 /* icon_previous@2x.png */; };
 		EAFE63991B85C31800DBD193 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFE63981B85C31800DBD193 /* main.m */; };
 		EAFE639C1B85C31800DBD193 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFE639B1B85C31800DBD193 /* AppDelegate.m */; };
 		EAFE639F1B85C31800DBD193 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFE639E1B85C31800DBD193 /* ViewController.m */; };
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA2CE1221B8C43320030F098 /* icon_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_next@2x.png"; path = "Resource/icon_next@2x.png"; sourceTree = SOURCE_ROOT; };
+		EA2CE1231B8C43320030F098 /* icon_previous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_previous@2x.png"; path = "Resource/icon_previous@2x.png"; sourceTree = SOURCE_ROOT; };
 		EAFE63931B85C31800DBD193 /* FDCalendarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FDCalendarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAFE63971B85C31800DBD193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAFE63981B85C31800DBD193 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -66,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA2CE1211B8C42BF0030F098 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EA2CE1221B8C43320030F098 /* icon_next@2x.png */,
+				EA2CE1231B8C43320030F098 /* icon_previous@2x.png */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
 		EAFE638A1B85C31800DBD193 = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +142,7 @@
 		EAFE63BC1B85C40C00DBD193 /* FDCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				EA2CE1211B8C42BF0030F098 /* Resource */,
 				EAFE63BD1B85C43D00DBD193 /* FDCalendar.h */,
 				EAFE63BE1B85C43D00DBD193 /* FDCalendar.m */,
 				EAFE63C01B85C45600DBD193 /* FDCalendarItem.h */,
@@ -219,7 +233,9 @@
 			files = (
 				EAFE63A21B85C31800DBD193 /* Main.storyboard in Resources */,
 				EAFE63A71B85C31800DBD193 /* LaunchScreen.xib in Resources */,
+				EA2CE1251B8C43320030F098 /* icon_previous@2x.png in Resources */,
 				EAFE63A41B85C31800DBD193 /* Images.xcassets in Resources */,
+				EA2CE1241B8C43320030F098 /* icon_next@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +454,7 @@
 				EAFE63B81B85C31900DBD193 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EAFE63B91B85C31900DBD193 /* Build configuration list for PBXNativeTarget "FDCalendarDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +463,7 @@
 				EAFE63BB1B85C31900DBD193 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

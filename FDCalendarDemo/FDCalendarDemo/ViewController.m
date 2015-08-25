@@ -17,14 +17,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    FDCalendar *calendar = [[FDCalendar alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 360)];
-    calendar.date = [NSDate date];
+    
+    FDCalendar *calendar = [[FDCalendar alloc] initWithCurrentDate:[NSDate date]];
+    CGRect frame = calendar.frame;
+    frame.origin.y = 64;
+    calendar.frame = frame;
     [self.view addSubview:calendar];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

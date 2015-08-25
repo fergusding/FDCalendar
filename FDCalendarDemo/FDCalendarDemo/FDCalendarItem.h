@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define DeviceWidth [UIScreen mainScreen].bounds.size.width
+
 @protocol FDCalendarItemDelegate;
 
 @interface FDCalendarItem : UIView
