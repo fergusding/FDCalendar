@@ -17,10 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     FDCalendar *calendar = [[FDCalendar alloc] initWithCurrentDate:[NSDate date]];
     CGRect frame = calendar.frame;
-    frame.origin.y = 64;
+    frame.origin.y = 20;
     calendar.frame = frame;
     [self.view addSubview:calendar];
 }
