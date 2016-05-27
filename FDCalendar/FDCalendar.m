@@ -208,11 +208,17 @@ static NSDateFormatter *dateFormattor;
 - (void)reloadCalendarItems {
     CGPoint offset = self.scrollView.contentOffset;
     
+    if (offset.x == self.scrollView.frame.size.width) { //防止滑动一点点并不切换scrollview的视图
+        return;
+    }
+    
     if (offset.x > self.scrollView.frame.size.width) {
         [self setNextMonthDate];
     } else {
         [self setPreviousMonthDate];
     }
+    
+    self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width, 0);
 }
 
 - (void)showDatePickerView {
@@ -262,7 +268,6 @@ static NSDateFormatter *dateFormattor;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self reloadCalendarItems];
-    self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width, 0);
 }
 
 #pragma mark - FDCalendarItemDelegate
